@@ -4,7 +4,7 @@ import MobileSidebar from '../components/Sidebar/MobileSidebar';
 
 const Home = () => {
     return (
-        <div className="h-screen flex overflow-hidden bg-white">
+        <div className="h-screen flex overflow-hidden bg-white dark:bg-dark-700">
             <MobileSidebar />
             <DesktopSidebar />
             <div className="flex flex-col min-w-0 flex-1 overflow-hidden">

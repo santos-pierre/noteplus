@@ -11,8 +11,8 @@ export default function Item({ folder = false }: ItemProps) {
         <li
             className={`${
                 isActive
-                    ? 'bg-gray-200 text-gray-900'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-gray-200 text-gray-900 dark:bg-dark-900 dark:text-gray-200 shadow-md'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-900 hover:text-gray-900 dark:hover:text-gray-200'
             }  group flex items-center justify-between px-2 py-2 lg:text-sm text-base font-medium rounded-md cursor-pointer`}
             onClick={() => setIsActive(!isActive)}
         >
@@ -20,8 +20,8 @@ export default function Item({ folder = false }: ItemProps) {
                 <svg
                     className={`${
                         isActive
-                            ? 'text-gray-500'
-                            : 'text-gray-400 group-hover:text-gray-500'
+                            ? 'text-gray-500 dark:text-gray-200'
+                            : 'text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-200'
                     } mr-4 lg:mr-3 h-6 w-6`}
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -48,7 +48,7 @@ export default function Item({ folder = false }: ItemProps) {
             </div>
             {folder && (
                 <svg
-                    className="text-gray-500 mr-3 h-6 w-6"
+                    className="text-gray-500 dark:text-gray-400 mr-3 h-6 w-6"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"

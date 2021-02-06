@@ -19,13 +19,13 @@ const MobileSidebar = () => {
                     leaveTo="opacity-0"
                 >
                     <div
-                        className="absolute inset-0 bg-gray-600 opacity-75"
+                        className="absolute inset-0 bg-gray-600 dark:bg-dark-800 opacity-75"
                         onClick={toggleVisibility}
                     />
                 </Transition.Child>
                 <Transition.Child
                     as="div"
-                    className="relative flex-1 flex flex-col max-w-xs w-full bg-white focus:outline-none"
+                    className="relative flex-1 flex flex-col max-w-xs w-full bg-white dark:bg-dark-800 focus:outline-none"
                     enter="transition ease-in-out duration-300 transform"
                     enterFrom="-translate-x-full"
                     enterTo="translate-x-0"
@@ -59,13 +59,6 @@ const MobileSidebar = () => {
                         </button>
                     </div>
                     <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-                        <div className="flex-shrink-0 flex items-center px-4">
-                            <img
-                                className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-900-text.svg"
-                                alt="Workflow"
-                            />
-                        </div>
                         <nav aria-label="Sidebar" className="mt-5">
                             <div className="px-2 space-y-1">
                                 <Item folder />
