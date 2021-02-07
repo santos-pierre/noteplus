@@ -5,24 +5,29 @@ const MobileHeader = () => {
 
     return (
         <div className="lg:hidden">
-            <div className="flex items-center justify-between bg-gray-50 border-b border-gray-200 px-4 py-1.5">
+            <div className="flex items-center justify-between bg-dark-50 dark:bg-dark-800 border-b border-dark-200 dark:border-dark-500 px-4 py-1.5">
                 <div>
                     <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                        alt="Workflow"
+                        className="hidden w-auto h-8 dark:block"
+                        src="/noteplus-logo-dark.svg"
+                        alt="noteplus-logo"
+                    />
+                    <img
+                        className="block w-auto h-8 dark:hidden"
+                        src="/noteplus-logo-light.svg"
+                        alt="noteplus-logo"
                     />
                 </div>
                 <div>
                     <button
                         type="button"
-                        className="-mr-3 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900"
+                        className="inline-flex items-center justify-center w-12 h-12 -mr-3 text-dark-500 rounded-md dark:text-dark-300 hover:text-dark-900 focus:ring-2 focus:ring-inset focus:ring-dark-500 dark:hover:text-dark-500 focus:outline-none"
                         onClick={toggleVisibility}
                     >
                         <span className="sr-only">Open sidebar</span>
                         {/* Heroicon name: outline/menu */}
                         <svg
-                            className="h-6 w-6"
+                            className="w-6 h-6"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
