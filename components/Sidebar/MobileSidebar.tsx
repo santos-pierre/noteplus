@@ -2,6 +2,7 @@ import Item from './Item/Item';
 import { Transition } from '@headlessui/react';
 import { useSidebar } from '../../utils/custom-hooks';
 import LogoPlaceholder from './IconPlaceholder';
+import AddSection from './AddSection/AddSection';
 
 const MobileSidebar = () => {
     const { isVisible, toggleVisibility } = useSidebar();
@@ -20,7 +21,7 @@ const MobileSidebar = () => {
                     leaveTo="opacity-0"
                 >
                     <div
-                        className="absolute inset-0 bg-dark-600 opacity-75 dark:bg-dark-800"
+                        className="absolute inset-0 opacity-75 bg-dark-600 dark:bg-dark-800"
                         onClick={toggleVisibility}
                     />
                 </Transition.Child>
@@ -59,8 +60,9 @@ const MobileSidebar = () => {
                             </svg>
                         </button>
                     </div>
-                    <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
+                    <div className="flex-1 h-0 pt-5 pb-4 space-y-3 overflow-y-auto">
                         <LogoPlaceholder />
+                        <AddSection />
                         <nav aria-label="Sidebar" className="mt-5">
                             <div className="px-2 space-y-1">
                                 <Item folder />
