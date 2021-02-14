@@ -12,9 +12,9 @@ const FolderNotes = ({ folder_name, notes }: FolderNotesProps) => {
     const [open, setOpen] = useState<boolean>(false);
 
     return (
-        <ul key={`${folder_name}-container`}>
+        <>
             {folder_name !== 'other' && (
-                <>
+                <figure key={`${folder_name}-container`}>
                     <FolderItem
                         key={folder_name}
                         folder_name={folder_name}
@@ -26,9 +26,9 @@ const FolderNotes = ({ folder_name, notes }: FolderNotesProps) => {
                             return <NoteItem key={element.id} note={element} />;
                         })}
                     </ul>
-                </>
+                </figure>
             )}
-        </ul>
+        </>
     );
 };
 

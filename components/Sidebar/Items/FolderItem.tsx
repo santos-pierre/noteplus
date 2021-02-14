@@ -22,7 +22,7 @@ const FolderItem = ({ folder_name, handleCollapse, collapse }: FolderItemProps) 
     };
 
     return (
-        <li
+        <figcaption
             className={`${
                 userSelection?.id === folder?.id
                     ? 'bg-blue-500 text-blue-100 dark:bg-blue-900 dark:text-blue-300 shadow-md'
@@ -76,7 +76,7 @@ const FolderItem = ({ folder_name, handleCollapse, collapse }: FolderItemProps) 
                 {/* Name */}
                 <span className="flex-grow">{folder_name}</span>
             </div>
-        </li>
+        </figcaption>
     );
 };
 
