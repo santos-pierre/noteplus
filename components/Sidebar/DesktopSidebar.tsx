@@ -1,8 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { getNotesByFolder, selectFolder } from '../../redux/slices/notesSlice';
+import { selectItemSidebar } from '../../redux/slices/sidebarSlice';
 import AddSection from './AddSection/AddSection';
 import LogoPlaceholder from './IconPlaceholder';
-import Item from './Item/Item';
+import ListItem from './Items/ListItem';
+import ListItemFolder from './Items/ListItemFolder';
 
-export default function DesktopSidebar() {
+const DesktopSidebar = () => {
+    const notes = useSelector(getNotesByFolder);
+    const dispatch = useDispatch();
+    const resetUserSelection = () => {
+        dispatch(selectFolder(null));
+        dispatch(selectItemSidebar(null));
+    };
     return (
         <div className="hidden lg:flex lg:flex-shrink-0">
             <div className="flex flex-col w-64">
@@ -13,13 +23,16 @@ export default function DesktopSidebar() {
                         <AddSection />
                         <nav className="flex-1 mt-5" aria-label="Sidebar">
                             <div className="px-2 space-y-1">
-                                <Item folder />
-                                <Item />
+                                <ListItemFolder notes={notes} />
+                                <ListItem notes={notes['other']} />
                             </div>
                         </nav>
+                        <div className="h-full" onClick={resetUserSelection}></div>
                     </div>
                 </div>
             </div>
         </div>
     );
-}
+};
+
+export default DesktopSidebar;

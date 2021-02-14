@@ -1,11 +1,22 @@
-import Item from './Item/Item';
 import { Transition } from '@headlessui/react';
 import { useSidebar } from '../../utils/custom-hooks';
 import LogoPlaceholder from './IconPlaceholder';
 import AddSection from './AddSection/AddSection';
+import ListItemFolder from './Items/ListItemFolder';
+import ListItem from './Items/ListItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNotesByFolder, selectFolder } from '../../redux/slices/notesSlice';
+import { selectItemSidebar } from '../../redux/slices/sidebarSlice';
 
 const MobileSidebar = () => {
     const { isVisible, toggleVisibility } = useSidebar();
+    const notes = useSelector(getNotesByFolder);
+
+    const dispatch = useDispatch();
+    const resetUserSelection = () => {
+        dispatch(selectFolder(null));
+        dispatch(selectItemSidebar(null));
+    };
 
     return (
         <Transition as="div" className="lg:hidden" show={isVisible}>
@@ -42,7 +53,6 @@ const MobileSidebar = () => {
                             onClick={toggleVisibility}
                         >
                             <span className="sr-only">Close sidebar</span>
-                            {/* Heroicon name: outline/x */}
                             <svg
                                 className="w-6 h-6 text-white"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -65,10 +75,11 @@ const MobileSidebar = () => {
                         <AddSection />
                         <nav aria-label="Sidebar" className="mt-5">
                             <div className="px-2 space-y-1">
-                                <Item folder />
-                                <Item />
+                                <ListItemFolder notes={notes} />
+                                <ListItem notes={notes['other']} />
                             </div>
                         </nav>
+                        <div className="pb-12" onClick={resetUserSelection}></div>
                     </div>
                 </Transition.Child>
                 <div className="flex-shrink-0 w-14" aria-hidden="true">

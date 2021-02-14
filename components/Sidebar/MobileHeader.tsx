@@ -21,7 +21,7 @@ const MobileHeader = () => {
                 <div>
                     <button
                         type="button"
-                        className="inline-flex items-center justify-center w-12 h-12 -mr-3 text-dark-500 rounded-md dark:text-dark-300 hover:text-dark-900 focus:ring-2 focus:ring-inset focus:ring-dark-500 dark:hover:text-dark-500 focus:outline-none"
+                        className="inline-flex items-center justify-center w-12 h-12 -mr-3 rounded-md text-dark-500 dark:text-dark-300 hover:text-dark-900 focus:ring-2 focus:ring-inset focus:ring-dark-500 dark:hover:text-dark-500 focus:outline-none"
                         onClick={toggleVisibility}
                     >
                         <span className="sr-only">Open sidebar</span>

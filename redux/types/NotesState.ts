@@ -1,8 +1,8 @@
 export type NotesState = {
     folders: Array<Folder>;
-    files: Array<File>;
-    currentFolder: string | null;
-    currentNote: string | null;
+    notes: Array<Note>;
+    currentFolder: Folder | null;
+    currentNote: Note | null;
 };
 
 // Folder
@@ -20,21 +20,20 @@ export type EditFolderAction = {
     newName: string;
 };
 
-// File
-
-export type File = {
+// Note
+export type Note = {
     id: string;
     name: string;
     folder_id: string | null;
     content: string | null;
 };
 
-export type newFile = {
+export type newNote = {
     name: string;
     folder_id: string | null;
 };
 
-export type EditFileAction = {
+export type EditNoteAction = {
     id: string;
     newName: string;
     folder_id: string | null;
