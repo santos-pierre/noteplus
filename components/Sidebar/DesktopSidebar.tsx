@@ -3,8 +3,7 @@ import { getNotesByFolder, selectFolder } from '../../redux/slices/notesSlice';
 import { selectItemSidebar } from '../../redux/slices/sidebarSlice';
 import AddSection from './AddSection/AddSection';
 import LogoPlaceholder from './IconPlaceholder';
-import ListItem from './Items/ListItem';
-import ListItemFolder from './Items/ListItemFolder';
+import ListItems from './Items/ListItems';
 
 const DesktopSidebar = () => {
     const notes = useSelector(getNotesByFolder);
@@ -23,8 +22,7 @@ const DesktopSidebar = () => {
                         <AddSection />
                         <nav className="flex-1 mt-5" aria-label="Sidebar">
                             <div className="px-2 space-y-1">
-                                <ListItemFolder notes={notes} />
-                                <ListItem notes={notes['other']} />
+                                <ListItems notes={notes} />
                             </div>
                         </nav>
                         <div className="h-full" onClick={resetUserSelection}></div>

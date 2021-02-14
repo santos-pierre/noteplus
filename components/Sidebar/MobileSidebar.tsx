@@ -2,11 +2,10 @@ import { Transition } from '@headlessui/react';
 import { useSidebar } from '../../utils/custom-hooks';
 import LogoPlaceholder from './IconPlaceholder';
 import AddSection from './AddSection/AddSection';
-import ListItemFolder from './Items/ListItemFolder';
-import ListItem from './Items/ListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotesByFolder, selectFolder } from '../../redux/slices/notesSlice';
 import { selectItemSidebar } from '../../redux/slices/sidebarSlice';
+import ListItems from './Items/ListItems';
 
 const MobileSidebar = () => {
     const { isVisible, toggleVisibility } = useSidebar();
@@ -75,11 +74,10 @@ const MobileSidebar = () => {
                         <AddSection />
                         <nav aria-label="Sidebar" className="mt-5">
                             <div className="px-2 space-y-1">
-                                <ListItemFolder notes={notes} />
-                                <ListItem notes={notes['other']} />
+                                <ListItems notes={notes} />
                             </div>
                         </nav>
-                        <div className="pb-12" onClick={resetUserSelection}></div>
+                        <div className="p-48" onClick={resetUserSelection}></div>
                     </div>
                 </Transition.Child>
                 <div className="flex-shrink-0 w-14" aria-hidden="true">

@@ -4,7 +4,7 @@ type ListItemFolderProps = {
     notes: any;
 };
 
-const ListItemFolder = ({ notes }: ListItemFolderProps) => {
+const ListItems = ({ notes }: ListItemFolderProps) => {
     return (
         <>
             {Object.keys(notes).map((keyName) => {
@@ -14,4 +14,4 @@ const ListItemFolder = ({ notes }: ListItemFolderProps) => {
     );
 };
 
-export default ListItemFolder;
+export default ListItems;
