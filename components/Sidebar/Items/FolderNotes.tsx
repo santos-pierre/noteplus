@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { DragEvent, useEffect, useState } from 'react';
 import { Note } from '../../../redux/types/NotesState';
 import FolderItem from './FolderItem';
 import NoteItem from './NoteItem';
@@ -16,8 +16,22 @@ const FolderNotes = ({ folder_name, notes }: FolderNotesProps) => {
         }
     }, [folder_name]);
 
+    const handleDrop = (e: DragEvent<HTMLElement>) => {
+        e.preventDefault();
+
+        const note_id = e.dataTransfer.getData('note_id');
+
+        const note = document.getElementById(note_id);
+
+        console.log(note);
+    };
+
+    const handleDragOver = (e: DragEvent<HTMLElement>) => {
+        e.preventDefault();
+    };
+
     return (
-        <figure key={`${folder_name}-container`} id={`${folder_name}-container`}>
+        <figure key={`${folder_name}`} id={`${folder_name}`} onDragOver={handleDragOver} onDrop={handleDrop}>
             {folder_name !== 'other' && (
                 <FolderItem
                     key={folder_name}

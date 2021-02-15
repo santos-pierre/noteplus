@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Note } from '../../../redux/types/NotesState';
 import { selectNote } from '../../../redux/slices/notesSlice';
 import { getUserSelection, selectItemSidebar } from '../../../redux/slices/sidebarSlice';
+import { DragEvent } from 'react';
 
 type ItemProps = {
     note: Note;
@@ -16,9 +17,19 @@ const NoteItem = ({ note }: ItemProps) => {
         dispatch(selectNote(note));
     };
 
+    const handleDragStart = (e: DragEvent<HTMLElement>) => {
+        console.log('Drag Start', e.target);
+        const target = e.currentTarget;
+
+        e.dataTransfer.setData('note_id', target.id);
+    };
+
+    const handleDragOver = (e: DragEvent<HTMLElement>) => {
+        e.preventDefault();
+        console.log('Drag Over', e.target);
+    };
+
     return (
-        //         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        // </svg>
         <li
             className={`${
                 userSelection?.id === note?.id
@@ -28,6 +39,10 @@ const NoteItem = ({ note }: ItemProps) => {
                 note.folder_id ? 'ml-5' : ''
             } group flex items-center justify-between px-2 py-2 lg:text-sm text-base font-medium rounded-md cursor-pointer`}
             onClick={handleClick}
+            draggable
+            onDragStart={handleDragStart}
+            onDragOver={handleDragOver}
+            id={note.id}
         >
             <div className="flex items-center">
                 <svg
