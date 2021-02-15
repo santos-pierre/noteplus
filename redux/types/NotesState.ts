@@ -36,5 +36,5 @@ export type newNote = {
 export type EditNoteAction = {
     id: string;
     newName: string;
-    folder_id: string | null;
+    folder_name: string | null;
 };

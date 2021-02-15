@@ -28,25 +28,25 @@ const initialState: NotesState = {
     ],
     notes: [
         {
-            id: uuidv4(),
+            id: 'f99ea68a-b12c-466b-8ea4-47ed2941a82d',
             name: 'File 1',
             folder_id: '1',
             content: null,
         },
         {
-            id: uuidv4(),
-            name: 'File 1',
+            id: 'f8fd1937-b866-44cc-ab4e-7df260ee827d',
+            name: 'File with no Folder',
             folder_id: null,
             content: null,
         },
         {
-            id: uuidv4(),
+            id: '9993faf4-cf9e-432f-8432-618a1f0be5cb',
             name: 'File 2',
             folder_id: '1',
             content: null,
         },
         {
-            id: uuidv4(),
+            id: '86a93cbb-d105-4e53-aa64-13aaf5a5792e',
             name: 'File 3',
             folder_id: '2',
             content: null,
@@ -106,8 +106,13 @@ const foldersSlice = createSlice({
             });
             if (indexFile) {
                 state.notes[indexFile].name = action.payload.newName;
-                if (action.payload.folder_id) {
-                    state.notes[indexFile].folder_id = action.payload.folder_id;
+                if (action.payload.folder_name) {
+                    let folder = getFolderByName(state.folders, action.payload.folder_name);
+                    if (folder) {
+                        state.notes[indexFile].folder_id = folder.id;
+                    } else {
+                        state.notes[indexFile].folder_id = null;
+                    }
                 }
             }
         },
@@ -149,12 +154,25 @@ export const getNotesByFolder = (state: RootState) => {
     return notes;
 };
 
+/*
+ * Utils
+ */
+
 const getFolderNameById = (folders: Array<Folder>, id: string) => {
     let folder = folders.find((element) => element.id === id);
     if (folder) {
         return folder.name;
     } else {
         return 'other';
+    }
+};
+
+const getFolderByName = (folders: Array<Folder>, name: string) => {
+    let folder = folders.find((element) => element.name === name);
+    if (folder) {
+        return folder;
+    } else {
+        return null;
     }
 };
 
