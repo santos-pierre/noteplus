@@ -104,7 +104,7 @@ const foldersSlice = createSlice({
             let indexFile = state.notes.findIndex((note) => {
                 return note.id === action.payload.id;
             });
-            if (indexFile) {
+            if (indexFile !== -1) {
                 state.notes[indexFile].name = action.payload.newName;
                 if (action.payload.folder_name) {
                     let folder = getFolderByName(state.folders, action.payload.folder_name);
