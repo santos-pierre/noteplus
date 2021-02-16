@@ -10,6 +10,8 @@ import {
 } from '../types/NotesState';
 import { RootState } from '../types/RootState';
 import { v4 as uuidv4 } from 'uuid';
+import { AppStatus } from '../../enum/AppStatus';
+import { AppElement } from '../../enum/AppElement';
 
 const initialState: NotesState = {
     folders: [
@@ -54,6 +56,8 @@ const initialState: NotesState = {
     ],
     currentFolder: null,
     currentNote: null,
+    appStatus: AppStatus.NONE,
+    appElementType: AppElement.NONE,
 };
 
 const foldersSlice = createSlice({
@@ -117,8 +121,15 @@ const foldersSlice = createSlice({
             }
         },
         // Select Folder
-        selectFolder: (state, action: PayloadAction<Folder | null>) => {
-            state.currentFolder = action.payload;
+        selectFolder: (state, action: PayloadAction<Folder | null | string>) => {
+            if (typeof action.payload === 'string') {
+                let folder = state.folders.find((folder) => folder.id === action.payload);
+                if (folder) {
+                    state.currentFolder = folder;
+                }
+            } else {
+                state.currentFolder = action.payload;
+            }
         },
         // Select Note
         selectNote: (state, action: PayloadAction<Note>) => {
@@ -126,6 +137,15 @@ const foldersSlice = createSlice({
                 state.currentFolder = null;
             }
             state.currentNote = action.payload;
+        },
+        // App Status
+        updateStatus: (state, action: PayloadAction<string>) => {
+            state.appStatus = action.payload;
+        },
+
+        // App Element
+        updateAppElement: (state, action: PayloadAction<string>) => {
+            state.appElementType = action.payload;
         },
     },
 });
@@ -138,17 +158,21 @@ export const getFolders = (state: RootState) => state.datas.folders;
 export const getNotes = (state: RootState) => state.datas.notes;
 export const getCurrentNote = (state: RootState) => state.datas.currentNote;
 export const getCurrentFolder = (state: RootState) => state.datas.currentFolder;
+export const getCurrentAppStatus = (state: RootState) => state.datas.appStatus;
+export const getCurrentAppElement = (state: RootState) => state.datas.appElementType;
 export const getNotesByFolder = (state: RootState) => {
     let notes: any = {};
-    state.datas.folders.map((folder) => {
+    let tempFolders = [...state.datas.folders];
+    tempFolders.sort(compareFunction).map((folder) => {
         notes[folder.name] = [];
     });
-    notes['other'] = [];
+    notes['4cbaed4f-c3eb-4a2e-b033-c3253cd03c50'] = [];
     state.datas.notes.map((note) => {
         if (note.folder_id) {
             notes[getFolderNameById(state.datas.folders, note.folder_id)].push(note);
+            notes[getFolderNameById(state.datas.folders, note.folder_id)].sort(compareFunction);
         } else {
-            notes['other'].push(note);
+            notes['4cbaed4f-c3eb-4a2e-b033-c3253cd03c50'].push(note);
         }
     });
     return notes;
@@ -163,17 +187,16 @@ const getFolderNameById = (folders: Array<Folder>, id: string) => {
     if (folder) {
         return folder.name;
     } else {
-        return 'other';
+        return '4cbaed4f-c3eb-4a2e-b033-c3253cd03c50';
     }
 };
 
+const compareFunction = (a: Note | Folder, b: Note | Folder) => {
+    return ('' + a.name).localeCompare(b.name);
+};
+
 const getFolderByName = (folders: Array<Folder>, name: string) => {
-    let folder = folders.find((element) => element.name === name);
-    if (folder) {
-        return folder;
-    } else {
-        return null;
-    }
+    return folders.find((element) => element.name === name);
 };
 
 export const {
@@ -185,6 +208,8 @@ export const {
     editNote,
     selectFolder,
     selectNote,
+    updateAppElement,
+    updateStatus,
 } = foldersSlice.actions;
 
 export default foldersSlice.reducer;

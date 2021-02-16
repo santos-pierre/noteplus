@@ -1,8 +1,28 @@
+import { useDispatch } from 'react-redux';
+import { AppElement } from '../../../enum/AppElement';
+import { AppStatus } from '../../../enum/AppStatus';
+import { updateAppElement, updateStatus } from '../../../redux/slices/notesSlice';
+
 const AddSection = () => {
+    const dispatch = useDispatch();
+
+    const handleAddNote = () => {
+        dispatch(updateAppElement(AppElement.NOTE));
+        dispatch(updateStatus(AppStatus.CREATE));
+    };
+
+    const handleAddFolder = () => {
+        dispatch(updateAppElement(AppElement.FOLDER));
+        dispatch(updateStatus(AppStatus.CREATE));
+    };
+
     return (
         <div className="py-3 space-y-4 border-t border-b border-dark-200 dark:border-dark-500">
             <div className="px-4 font-bold focus:outline-none ">
-                <button className="inline-flex font-medium rounded-md focus:outline-none hover:opacity-75">
+                <button
+                    className="inline-flex font-medium rounded-md focus:outline-none hover:opacity-75"
+                    onClick={handleAddNote}
+                >
                     <svg
                         className="w-6 h-6 mr-2 text-blue-700 dark:text-blue-500"
                         xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +41,10 @@ const AddSection = () => {
                 </button>
             </div>
             <div className="px-4 font-bold focus:outline-none ">
-                <button className="inline-flex font-medium rounded-md focus:outline-none hover:opacity-75">
+                <button
+                    onClick={handleAddFolder}
+                    className="inline-flex font-medium rounded-md focus:outline-none hover:opacity-75"
+                >
                     <svg
                         className="w-6 h-6 mr-2 text-blue-700 dark:text-blue-500"
                         xmlns="http://www.w3.org/2000/svg"

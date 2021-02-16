@@ -3,6 +3,8 @@ export type NotesState = {
     notes: Array<Note>;
     currentFolder: Folder | null;
     currentNote: Note | null;
+    appStatus: string;
+    appElementType: string;
 };
 
 // Folder

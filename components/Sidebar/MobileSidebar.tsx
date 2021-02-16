@@ -69,15 +69,22 @@ const MobileSidebar = () => {
                             </svg>
                         </button>
                     </div>
-                    <div className="flex-1 h-0 pt-5 pb-4 space-y-3 overflow-y-auto">
+                    <div
+                        className="flex-1 h-0 pt-5 pb-4 space-y-3 overflow-y-auto"
+                        onClick={resetUserSelection}
+                    >
                         <LogoPlaceholder />
                         <AddSection />
                         <nav aria-label="Sidebar" className="mt-5">
-                            <div className="px-2 space-y-1">
+                            <div
+                                className="px-2 space-y-1"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                }}
+                            >
                                 <ListItems notes={notes} />
                             </div>
                         </nav>
-                        <div className="p-48" onClick={resetUserSelection}></div>
                     </div>
                 </Transition.Child>
                 <div className="flex-shrink-0 w-14" aria-hidden="true">

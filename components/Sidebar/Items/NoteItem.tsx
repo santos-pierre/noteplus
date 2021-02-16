@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Note } from '../../../redux/types/NotesState';
-import { selectNote } from '../../../redux/slices/notesSlice';
+import { selectFolder, selectNote } from '../../../redux/slices/notesSlice';
 import { getUserSelection, selectItemSidebar } from '../../../redux/slices/sidebarSlice';
 import { DragEvent } from 'react';
 
@@ -15,6 +15,7 @@ const NoteItem = ({ note }: ItemProps) => {
     const handleClick = () => {
         dispatch(selectItemSidebar(note));
         dispatch(selectNote(note));
+        dispatch(selectFolder(note.folder_id));
     };
 
     const handleDragStart = (e: DragEvent<HTMLElement>) => {
