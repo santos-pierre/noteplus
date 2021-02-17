@@ -33,25 +33,25 @@ const initialState: NotesState = {
             id: 'f99ea68a-b12c-466b-8ea4-47ed2941a82d',
             name: 'File 1',
             folder_id: '1',
-            content: null,
+            content: 'Bébé tout beau',
         },
         {
             id: 'f8fd1937-b866-44cc-ab4e-7df260ee827d',
             name: 'File with no Folder',
             folder_id: null,
-            content: null,
+            content: '## Second Title',
         },
         {
             id: '9993faf4-cf9e-432f-8432-618a1f0be5cb',
             name: 'File 2',
             folder_id: '1',
-            content: null,
+            content: '',
         },
         {
             id: '86a93cbb-d105-4e53-aa64-13aaf5a5792e',
             name: 'File 3',
             folder_id: '2',
-            content: null,
+            content: '',
         },
     ],
     currentFolder: null,
@@ -94,7 +94,7 @@ const foldersSlice = createSlice({
                     id: uuidv4(),
                     name: action.payload.name,
                     folder_id: action.payload.folder_id,
-                    content: null,
+                    content: '',
                 };
                 state.notes.push(newNote);
             }
@@ -110,6 +110,7 @@ const foldersSlice = createSlice({
             });
             if (indexFile !== -1) {
                 state.notes[indexFile].name = action.payload.newName;
+                state.notes[indexFile].content = action.payload.content;
                 if (action.payload.folder_name) {
                     let folder = getFolderByName(state.folders, action.payload.folder_name);
                     if (folder) {
