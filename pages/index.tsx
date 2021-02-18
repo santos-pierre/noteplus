@@ -7,10 +7,10 @@ const Editor = dynamic(import('./../components/Editor/Editor'), { ssr: false });
 const Home = () => {
     return (
         <div className="flex h-screen overflow-hidden bg-white dark:bg-dark-700">
-            <MobileSidebar />
+            {/* <MobileSidebar /> */}
             <DesktopSidebar />
             <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
-                <MobileHeader />
+                {/* <MobileHeader /> */}
                 <div className="relative z-0 flex flex-1 overflow-hidden">
                     <main
                         className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last"

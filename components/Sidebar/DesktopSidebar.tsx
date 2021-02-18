@@ -6,12 +6,12 @@ import LogoPlaceholder from './IconPlaceholder';
 import ListItems from './Items/ListItems';
 
 const DesktopSidebar = () => {
-    const notes = useSelector(getNotesByFolder);
-    const dispatch = useDispatch();
-    const resetUserSelection = () => {
-        dispatch(selectFolder(null));
-        dispatch(selectItemSidebar(null));
-    };
+    // const notes = useSelector(getNotesByFolder);
+    // const dispatch = useDispatch();
+    // const resetUserSelection = () => {
+    //     dispatch(selectFolder(null));
+    //     dispatch(selectItemSidebar(null));
+    // };
     return (
         <div className="hidden lg:flex lg:flex-shrink-0">
             <div className="flex flex-col w-64">
@@ -20,14 +20,20 @@ const DesktopSidebar = () => {
                     <div className="flex flex-col flex-1 pt-5 pb-4 space-y-3 overflow-y-auto">
                         <LogoPlaceholder />
                         <AddSection />
-                        <nav className="flex-1 mt-5" aria-label="Sidebar" onClick={resetUserSelection}>
+                        <nav
+                            className="flex-1 mt-5"
+                            aria-label="Sidebar"
+                            /*
+                            onClick={resetUserSelection}
+                            */
+                        >
                             <div
                                 className="space-y-1"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                 }}
                             >
-                                <ListItems notes={notes} />
+                                {/* <ListItems notes={notes} /> */}
                             </div>
                         </nav>
                     </div>
