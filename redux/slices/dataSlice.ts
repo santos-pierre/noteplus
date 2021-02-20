@@ -1,47 +1,48 @@
-import { FolderItem, EditItemPayload, NoteItem, NoteState } from '@/types';
+import { FolderItem, EditItemPayload, NoteItem, NoteState } from 'types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DEFAULT_FOLDER } from '@/enums';
 
 const INITIAL_STATE: NoteState = {
     folders: [
         {
-            id: '1',
-            name: 'pierre 1',
+            id: '378cfecd-61dc-4cc3-9312-58c20fafdc0b',
+            name: 'Folder 1',
         },
         {
-            id: '2',
-            name: 'folder 2',
+            id: 'efd7ceed-0794-4bf4-a7fc-ff1514f336a6',
+            name: 'Folder 2',
         },
         {
-            id: '3',
-            name: 'folder 3',
+            id: '2fb28f2e-ba61-4a58-9184-134b645da17c',
+            name: 'Folder 3',
         },
     ],
     notes: [
         {
             id: 'f99ea68a-b12c-466b-8ea4-47ed2941a82d',
             name: 'File 1',
-            folderId: '1',
+            folderId: '378cfecd-61dc-4cc3-9312-58c20fafdc0b',
             content: 'Bébé tout beau',
             lastUpdated: '',
         },
         {
             id: 'f8fd1937-b866-44cc-ab4e-7df260ee827d',
             name: 'File with no Folder',
-            folderId: 'null',
+            folderId: DEFAULT_FOLDER.NAME,
             content: '## Second Title',
             lastUpdated: '',
         },
         {
             id: '9993faf4-cf9e-432f-8432-618a1f0be5cb',
             name: 'File 2',
-            folderId: '1',
+            folderId: '378cfecd-61dc-4cc3-9312-58c20fafdc0b',
             content: '',
             lastUpdated: '',
         },
         {
             id: '86a93cbb-d105-4e53-aa64-13aaf5a5792e',
             name: 'File 3',
-            folderId: '2',
+            folderId: 'efd7ceed-0794-4bf4-a7fc-ff1514f336a6',
             content: '',
             lastUpdated: '',
         },
@@ -69,7 +70,7 @@ const dataSlice = createSlice({
 
         deleteFolder: (state, { payload }: PayloadAction<string>) => {
             state.folders = state.folders.filter((folder) => folder.id !== payload);
-            state.notes = state.notes.filter((note) => note.folderId !== payload);
+            state.notes = state.notes.filter((note: NoteItem) => note.folderId !== payload);
         },
 
         // Notes

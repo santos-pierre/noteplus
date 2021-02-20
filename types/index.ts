@@ -7,7 +7,7 @@ export type NoteItem = {
     name: string;
     content: string;
     lastUpdated: string;
-    folderId?: string;
+    folderId: string;
 };
 
 export type FolderItem = {

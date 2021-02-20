@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import notesSlice from './slices/notesSlice';
-import sidebarSlice from './slices/sidebarSlice';
+import dataSlice from '@/redux/slices/dataSlice';
+import settingsSlice from '@/redux/slices/settingsSlice';
 
 export default configureStore({
     reducer: {
-        sidebar: sidebarSlice,
-        datas: notesSlice,
+        settings: settingsSlice,
+        datas: dataSlice,
     },
     devTools: true,
 });

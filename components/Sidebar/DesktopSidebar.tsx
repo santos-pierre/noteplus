@@ -1,9 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { getNotesByFolder, selectFolder } from '../../redux/slices/notesSlice';
-import { selectItemSidebar } from '../../redux/slices/sidebarSlice';
 import AddSection from './AddSection/AddSection';
 import LogoPlaceholder from './IconPlaceholder';
-import ListItems from './Items/ListItems';
 
 const DesktopSidebar = () => {
     // const notes = useSelector(getNotesByFolder);

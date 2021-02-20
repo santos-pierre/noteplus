@@ -1,11 +1,11 @@
-import { Transition } from '@headlessui/react';
-import { useSidebar } from '../../utils/custom-hooks';
-import LogoPlaceholder from './IconPlaceholder';
-import AddSection from './AddSection/AddSection';
-import { useDispatch, useSelector } from 'react-redux';
-import { getNotesByFolder, selectFolder } from '../../redux/slices/notesSlice';
-import { selectItemSidebar } from '../../redux/slices/sidebarSlice';
-import ListItems from './Items/ListItems';
+// import { Transition } from '@headlessui/react';
+// import { useSidebar } from '../../utils/custom-hooks';
+// import LogoPlaceholder from './IconPlaceholder';
+// import AddSection from './AddSection/AddSection';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getNotesByFolder, selectFolder } from '../../redux/slices/notesSlice';
+// import { selectItemSidebar } from '../../redux/slices/sidebarSlice';
+// import ListItems from './Items/ListItems';
 
 const MobileSidebar = () => {
     // const { isVisible, toggleVisibility } = useSidebar();
@@ -18,6 +18,7 @@ const MobileSidebar = () => {
     // };
 
     return (
+        //TODO
         <div>Test</div>
         // <Transition
         //     as="div"
