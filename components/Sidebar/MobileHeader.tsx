@@ -1,4 +1,4 @@
-import { useSidebar } from '../../utils/custom-hooks';
+import { useSidebar } from '@/utils/custom-hooks';
 
 const MobileHeader = () => {
     const { toggleVisibility } = useSidebar();
@@ -25,7 +25,6 @@ const MobileHeader = () => {
                         onClick={toggleVisibility}
                     >
                         <span className="sr-only">Open sidebar</span>
-                        {/* Heroicon name: outline/menu */}
                         <svg
                             className="w-6 h-6"
                             xmlns="http://www.w3.org/2000/svg"

@@ -25,7 +25,7 @@
             "@/types": ["types/index.ts"],
             "@/components/*": ["components/*"],
             "@/redux/*": ["redux/*"],
-            "@/utils/*": ["utils/*"],
+            "@/utils/*": ["utils/*"]
         }
     },
     "exclude": ["node_modules"],

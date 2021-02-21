@@ -1,5 +1,6 @@
 import { getSettings } from '@/redux/selectors';
-import { toggle } from '@/redux/slices/settingsSlice';
+import { updateActiveFolder } from '@/redux/slices/dataSlice';
+import { toggle, updateUserSelection } from '@/redux/slices/settingsSlice';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,4 +13,15 @@ export const useSidebar = () => {
     }, [dispatch]);
 
     return { sidebarVisible, toggleVisibility };
+};
+
+export const useResetUserSelection = () => {
+    const dispatch = useDispatch();
+
+    const resetUserSelection = useCallback(() => {
+        dispatch(updateActiveFolder(''));
+        dispatch(updateUserSelection(''));
+    }, [dispatch]);
+
+    return { resetUserSelection };
 };
