@@ -83,9 +83,7 @@ const FolderNotes: React.FC<FolderNotesProps> = ({
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             className={`${
-                dropVisibility === folder_name
-                    ? 'bg-blue-100 dark:bg-blue-700 border-2 dark:border-blue-900 border-blue-500 rounded-md'
-                    : ''
+                dropVisibility === folder_name ? 'bg-blue-700 border-2 border-blue-900 rounded-md' : ''
             }px-2`}
         >
             {folder_name !== DEFAULT_FOLDER.NAME && (

@@ -43,8 +43,8 @@ const NoteElement: React.FC<ItemProps> = ({ note }) => {
         <li
             className={`${
                 activeUserSelection === note?.id
-                    ? 'bg-blue-500 text-blue-100 dark:bg-blue-900 dark:text-blue-300 shadow-md'
-                    : 'text-dark-600 dark:text-dark-400 hover:bg-dark-50 dark:hover:bg-dark-900 hover:text-dark-900 dark:hover:text-dark-200'
+                    ? 'bg-blue-900 text-blue-300 shadow-md'
+                    : 'text-dark-400 hover:bg-dark-900 hover:text-dark-200'
             }  ${
                 note.folderId !== DEFAULT_FOLDER.NAME && 'ml-5'
             } group flex items-center justify-between px-2 py-2 lg:text-sm text-base font-medium rounded-md cursor-pointer relative`}
@@ -58,9 +58,7 @@ const NoteElement: React.FC<ItemProps> = ({ note }) => {
         >
             <svg
                 className={`${
-                    activeUserSelection === note?.id
-                        ? 'text-blue-300 dark:text-blue-400'
-                        : 'group-hover:text-dark-500 dark:group-hover:text-dark-200'
+                    activeUserSelection === note?.id ? 'text-blue-400' : 'group-hover:text-dark-200'
                 } mr-4 lg:mr-3 h-5 w-5`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -109,11 +107,11 @@ const NoteElement: React.FC<ItemProps> = ({ note }) => {
                             >
                                 <Menu.Items
                                     static
-                                    className="absolute right-0 w-32 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-600 rounded-md shadow-lg outline-none dark:border-gray-800 dark:bg-dark-700"
+                                    className="absolute right-0 w-32 mt-2 origin-top-right border divide-y divide-gray-600 rounded-md shadow-lg outline-none border-gray-800 bg-dark-700"
                                 >
                                     <Menu.Item>
                                         <span
-                                            className={`text-gray-700 dark:text-gray-400 flex space-x-4 items-center w-full px-4 py-2 text-xs leading-5 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-300 focus:outline-none`}
+                                            className={`text-gray-400 flex space-x-4 items-center w-full px-4 py-2 text-xs leading-5 hover:bg-gray-800 hover:text-gray-300 focus:outline-none`}
                                             onClick={(e: MouseEvent<HTMLButtonElement>) =>
                                                 e.stopPropagation()
                                             }
@@ -137,7 +135,7 @@ const NoteElement: React.FC<ItemProps> = ({ note }) => {
                                     </Menu.Item>
                                     <Menu.Item>
                                         <span
-                                            className={`text-gray-700 dark:text-gray-400 flex space-x-4 items-center w-full px-4 py-2 text-xs leading-5 hover:bg-gray-100 dark:hover:bg-gray-900 dark:hover:text-gray-300 focus:outline-none`}
+                                            className={`text-gray-400 flex space-x-4 items-center w-full px-4 py-2 text-xs leading-5 hover:bg-gray-800 hover:text-gray-300 focus:outline-none`}
                                             onClick={(e: MouseEvent<HTMLButtonElement>) =>
                                                 e.stopPropagation()
                                             }

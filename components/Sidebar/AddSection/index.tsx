@@ -17,14 +17,14 @@ const AddSection = () => {
     }, [dispatch]);
 
     return (
-        <div className="py-3 space-y-4 border-t border-b border-dark-200 dark:border-dark-500">
+        <div className="py-3 space-y-4 border-t border-b border-dark-500">
             <div className="px-4 font-bold focus:outline-none ">
                 <button
                     className="inline-flex font-medium rounded-md focus:outline-none hover:opacity-75"
                     onClick={handleAddNote}
                 >
                     <svg
-                        className="w-6 h-6 mr-2 text-blue-700 dark:text-blue-500"
+                        className="w-6 h-6 mr-2 text-blue-500"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -46,7 +46,7 @@ const AddSection = () => {
                     className="inline-flex font-medium rounded-md focus:outline-none hover:opacity-75"
                 >
                     <svg
-                        className="w-6 h-6 mr-2 text-blue-700 dark:text-blue-500"
+                        className="w-6 h-6 mr-2 text-blue-500"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"

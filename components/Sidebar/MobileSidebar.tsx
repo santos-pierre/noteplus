@@ -24,14 +24,11 @@ const MobileSidebar = () => {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div
-                        className="absolute inset-0 opacity-75 bg-dark-600 dark:bg-dark-800"
-                        onClick={toggleVisibility}
-                    />
+                    <div className="absolute inset-0 opacity-75 bg-dark-800" onClick={toggleVisibility} />
                 </Transition.Child>
                 <Transition.Child
                     as="div"
-                    className="relative flex flex-col flex-1 w-full max-w-xs bg-white dark:bg-dark-800 focus:outline-none"
+                    className="relative flex flex-col flex-1 w-full max-w-xs bg-dark-800 focus:outline-none"
                     enter="transition ease-in-out duration-300 transform"
                     enterFrom="-translate-x-full"
                     enterTo="translate-x-0"
@@ -64,7 +61,7 @@ const MobileSidebar = () => {
                         </button>
                     </div>
                     <div
-                        className="flex-1 h-0 pt-5 pb-4 space-y-3 overflow-y-auto"
+                        className="flex-1 h-0 pt-5 pb-4 space-y-3 overflow-y-auto text-white"
                         onClick={resetUserSelection}
                     >
                         <IconPlaceholder />

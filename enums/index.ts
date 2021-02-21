@@ -16,7 +16,7 @@ export enum AppStatus {
 
 export const CODEMIRROR_OPTION = {
     mode: 'gfm',
-    theme: 'neo',
+    theme: 'material-palenight',
     lineNumbers: false,
     lineWrapping: true,
     styleActiveLine: { nonEmpty: true },

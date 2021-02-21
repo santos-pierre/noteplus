@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
-import { AppElement, AppStatus } from '@/enums';
+import { AppElement, AppStatus, DEFAULT_FOLDER } from '@/enums';
 import { getNotes, getSettings } from '@/redux/selectors';
 import { addFolder, addNote, updateActiveNote } from '@/redux/slices/dataSlice';
 import { FolderItem, NoteItem } from '@/types';
@@ -100,7 +100,7 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, content }) => {
         <div>
             <form
                 className={`mt-1 relative inline-block ${
-                    folder_name && folder_name !== '4cbaed4f-c3eb-4a2e-b033-c3253cd03c50' ? 'ml-5' : ''
+                    folder_name && folder_name !== DEFAULT_FOLDER.NAME ? 'ml-5' : ''
                 } rounded-md`}
                 onSubmit={handleSubmit}
             >
@@ -111,7 +111,7 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, content }) => {
                     value={value}
                     onChange={handleChange}
                     onBlur={handleOnBlur}
-                    className={`inline-block p-2 border-gray-300 rounded-lg  dark:bg-gray-600 shadow-sm focus:outline-none focus:ring-1 ${
+                    className={`w-full inline-block p-2 border-gray-300 rounded-lg bg-gray-600 shadow-sm focus:outline-none focus:ring-1 ${
                         !error ? 'focus:ring-blue-500' : 'focus:ring-red-500'
                     } sm:text-sm`}
                 />

@@ -27,8 +27,8 @@ const FolderItem: React.FC<FolderItemProps> = ({ folder_name, collapse, handleCo
         <figcaption
             className={`${
                 activeUserSelection === folder?.id
-                    ? 'bg-blue-500 text-blue-100 dark:bg-blue-900 dark:text-blue-300 shadow-md'
-                    : 'text-dark-600 dark:text-dark-400 hover:bg-dark-50 dark:hover:bg-dark-900 hover:text-dark-900 dark:hover:text-dark-200'
+                    ? 'bg-blue-900 text-blue-300 shadow-md'
+                    : 'text-dark-400 hover:bg-dark-900 hover:text-dark-200'
             }  group flex items-center justify-between p-2 lg:text-sm text-base font-medium rounded-md cursor-pointer`}
             onClick={() => (folder ? handelClick(folder.id) : handelClick(''))}
         >
@@ -37,9 +37,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folder_name, collapse, handleCo
                     // Open Folder
                     <svg
                         className={`${
-                            activeUserSelection === folder?.id
-                                ? 'text-blue-300 dark:text-blue-400'
-                                : 'group-hover:text-dark-500 dark:group-hover:text-dark-200'
+                            activeUserSelection === folder?.id ? 'text-blue-400' : 'group-hover:text-dark-200'
                         } mr-4 lg:mr-3 h-6 w-6`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -57,9 +55,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folder_name, collapse, handleCo
                     // Close Folder
                     <svg
                         className={`${
-                            activeUserSelection === folder?.id
-                                ? 'text-blue-300 dark:text-blue-400'
-                                : 'group-hover:text-dark-500 dark:group-hover:text-dark-200'
+                            activeUserSelection === folder?.id ? 'text-blue-400' : 'group-hover:text-dark-200'
                         } mr-4 lg:mr-3 h-6 w-6`}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

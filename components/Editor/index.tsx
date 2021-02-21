@@ -8,12 +8,13 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/mode/php/php';
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/neo.css';
+import 'codemirror/theme/material-palenight.css';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/scroll/scrollpastend';
 import { findNote } from '@/utils/notes';
 import dayjs from 'dayjs';
 import { NoteItem } from '@/types';
+import EmptyEditor from '@/components/Editor/EmptyEditor';
 
 const Editor: React.FC = () => {
     const { activeNote, notes } = useSelector(getNotes);
@@ -31,35 +32,33 @@ const Editor: React.FC = () => {
     }, [activeNote]);
 
     const renderEditor = () => {
-        if (activeNote) {
-            if (!currentNote) {
-                return <div>Empty</div>;
-            } else if (currentNote !== undefined) {
-                return (
-                    <CodeMirror
-                        className="h-full pb-10"
-                        value={currentNote.content}
-                        options={codeMirrorOptions}
-                        editorDidMount={(editor) => {
-                            setTimeout(() => {
-                                editor.focus();
-                            }, 0);
-                            editor.setCursor(0);
-                        }}
-                        onChange={(editor, data, value) => {
-                            dispatch(
-                                updateNote({
-                                    id: currentNote.id,
-                                    content: value,
-                                    folderId: currentNote.folderId,
-                                    lastUpdate: dayjs().toString(),
-                                    name: currentNote.name,
-                                })
-                            );
-                        }}
-                    />
-                );
-            }
+        if (!currentNote) {
+            return <EmptyEditor />;
+        } else if (currentNote !== undefined) {
+            return (
+                <CodeMirror
+                    className="h-full pb-10"
+                    value={currentNote.content}
+                    options={codeMirrorOptions}
+                    editorDidMount={(editor) => {
+                        setTimeout(() => {
+                            editor.focus();
+                        }, 0);
+                        editor.setCursor(0);
+                    }}
+                    onChange={(editor, data, value) => {
+                        dispatch(
+                            updateNote({
+                                id: currentNote.id,
+                                content: value,
+                                folderId: currentNote.folderId,
+                                lastUpdate: dayjs().toString(),
+                                name: currentNote.name,
+                            })
+                        );
+                    }}
+                />
+            );
         }
     };
 
