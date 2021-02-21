@@ -2,32 +2,33 @@ import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 import { AppElement, AppStatus, DEFAULT_FOLDER } from '@/enums';
 import { getNotes, getSettings } from '@/redux/selectors';
-import { addFolder, addNote, updateActiveNote } from '@/redux/slices/dataSlice';
+import { addFolder, addNote, updateActiveNote, updateNote } from '@/redux/slices/dataSlice';
 import { FolderItem, NoteItem } from '@/types';
 import { FocusEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     updateAppModeItemType,
     updateAppModeStatus,
+    updateCurrentElementEdited,
     updateUserSelection,
 } from '@/redux/slices/settingsSlice';
 
 type InputItemProps = {
     folder_name?: string;
-    content?: string;
+    note?: NoteItem;
 };
 
-const InputItem: React.FC<InputItemProps> = ({ folder_name, content }) => {
+const InputItem: React.FC<InputItemProps> = ({ folder_name, note }) => {
     const dispatch = useDispatch();
     const { activeFolder, folders, notes } = useSelector(getNotes);
-    const { appModeItemType } = useSelector(getSettings);
+    const { appModeItemType, appModeStatus } = useSelector(getSettings);
     const inputEl = useRef<HTMLInputElement>(null);
     const [value, setValue] = useState<string>('');
     const [error, setError] = useState<string>('');
 
     useEffect(() => {
-        if (content) {
-            setValue(content);
+        if (note && note.name) {
+            setValue(note.name);
         }
     }, []);
 
@@ -39,7 +40,10 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, content }) => {
         if (value) {
             if (value.length >= 20) {
                 setError('Name cannot exceed 20 characters');
-            } else if (nameAlreadyExist(folders, value.trim()) || nameAlreadyExist(notes, value.trim())) {
+            } else if (
+                (nameAlreadyExist(folders, value.trim()) || nameAlreadyExist(notes, value.trim())) &&
+                note?.name !== value.trim()
+            ) {
                 setError('Folder or note with the same name already exist');
             } else {
                 setError('');
@@ -56,18 +60,30 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, content }) => {
 
         if (!error) {
             if (appModeItemType === AppElement.NOTE) {
-                let newNoteId = uuid();
-                dispatch(
-                    addNote({
-                        id: newNoteId,
-                        name: value,
-                        folderId: activeFolder,
-                        content: '',
-                        lastUpdated: dayjs().toString(),
-                    })
-                );
-                dispatch(updateActiveNote(newNoteId));
-                dispatch(updateUserSelection(newNoteId));
+                if (appModeStatus === AppStatus.EDIT) {
+                    if (note) {
+                        dispatch(
+                            updateNote({
+                                ...note,
+                                lastUpdate: dayjs().toString(),
+                                name: value,
+                            })
+                        );
+                    }
+                } else {
+                    let newNoteId = uuid();
+                    dispatch(
+                        addNote({
+                            id: newNoteId,
+                            name: value,
+                            folderId: activeFolder,
+                            content: '',
+                            lastUpdated: dayjs().toString(),
+                        })
+                    );
+                    dispatch(updateActiveNote(newNoteId));
+                    dispatch(updateUserSelection(newNoteId));
+                }
             } else if (appModeItemType === AppElement.FOLDER) {
                 dispatch(
                     addFolder({
@@ -87,13 +103,14 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, content }) => {
     };
 
     const handleOnBlur = () => {
-        if (content) {
-            setValue(content);
+        if (note?.name) {
+            setValue(note.name);
         } else {
             setValue('');
         }
         dispatch(updateAppModeItemType(AppElement.NONE));
         dispatch(updateAppModeStatus(AppStatus.VIEW));
+        dispatch(updateCurrentElementEdited(''));
     };
 
     return (

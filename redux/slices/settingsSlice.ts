@@ -6,6 +6,7 @@ const INITIAL_STATE: SettingsState = {
     activeUserSelection: '',
     appModeItemType: AppElement.NONE,
     appModeStatus: AppStatus.VIEW,
+    currentElementInEditionMode: '',
     sidebarVisible: false,
     codeMirrorOptions: CODEMIRROR_OPTION,
 };
@@ -26,6 +27,9 @@ const settingsSlice = createSlice({
         updateAppModeStatus: (state, { payload }: PayloadAction<string>) => {
             state.appModeStatus = payload;
         },
+        updateCurrentElementEdited: (state, { payload }: PayloadAction<string>) => {
+            state.currentElementInEditionMode = payload;
+        },
     },
 });
 
@@ -34,6 +38,7 @@ export const {
     updateAppModeItemType,
     updateAppModeStatus,
     updateUserSelection,
+    updateCurrentElementEdited,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

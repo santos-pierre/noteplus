@@ -22,6 +22,7 @@ export type FolderItem = {
 export type SettingsState = {
     sidebarVisible: boolean;
     activeUserSelection: string;
+    currentElementInEditionMode: string;
     appModeStatus: string; // Current Mode App => View/Edit/Create
     appModeItemType: string; // What are we Create/Edit => Folder or Note
     codeMirrorOptions: { [key: string]: any };
