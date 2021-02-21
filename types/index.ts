@@ -59,7 +59,7 @@ export type EditNotePayload = {
     id: string;
     name: string;
     lastUpdate: string;
-    folder_id: string;
+    folderId: string;
     content: string;
 };
 

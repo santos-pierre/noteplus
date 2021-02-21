@@ -1,48 +1,44 @@
-// import { useState } from 'react';
-// import { useSelector } from 'react-redux';
-// import { AppElement } from '../../../enums/AppElement';
-// import { AppStatus } from '../../../enums/AppStatus';
-// import { getCurrentAppElement, getCurrentAppStatus } from '../../../redux/slices/notesSlice';
-// import FolderNotes from './FolderNotes';
-// import InputItem from './InputItem';
+import { AppElement, AppStatus } from '@/enums';
+import { getSettings } from '@/redux/selectors';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import FolderNotes from '@/components/Sidebar/Items/FolderNotes';
+import InputItem from '@/components/Sidebar/Items/InputItem';
 
-type ListItemFolderProps = {
+type ListItemsProps = {
     notes: any;
 };
 
-const ListItems = () => {
-    // const [onDrop, setOnDrop] = useState<string | null>(null);
-    // const currentAppElement = useSelector(getCurrentAppElement);
-    // const currentAppStatus = useSelector(getCurrentAppStatus);
+const ListItems = ({ notes }: ListItemsProps) => {
+    const [onDrop, setOnDrop] = useState<string | null>(null);
+    const { appModeItemType, appModeStatus } = useSelector(getSettings);
 
-    // const isVisible = () => {
-    //     if (currentAppElement === AppElement.FOLDER) {
-    //         return currentAppStatus === AppStatus.CREATE;
-    //     } else {
-    //         return false;
-    //     }
-    // };
+    const isVisible = () => {
+        if (appModeItemType === AppElement.FOLDER) {
+            return appModeStatus === AppStatus.CREATE;
+        } else {
+            return false;
+        }
+    };
     return (
-        // TODO
-        <div>Refactor</div>
-        // <>
-        //     {isVisible() && (
-        //         <div className="px-3">
-        //             <InputItem />
-        //         </div>
-        //     )}
-        //     {Object.keys(notes).map((keyName) => {
-        //         return (
-        //             <FolderNotes
-        //                 folder_name={keyName}
-        //                 notes={notes[keyName]}
-        //                 key={keyName}
-        //                 dropVisibility={onDrop}
-        //                 handleDropVisibility={setOnDrop}
-        //             />
-        //         );
-        //     })}
-        // </>
+        <>
+            {isVisible() && (
+                <div className="px-3">
+                    <InputItem />
+                </div>
+            )}
+            {Object.keys(notes).map((keyName) => {
+                return (
+                    <FolderNotes
+                        folder_name={keyName}
+                        notes={notes[keyName]}
+                        key={keyName}
+                        dropVisibility={onDrop}
+                        handleDropVisibility={setOnDrop}
+                    />
+                );
+            })}
+        </>
     );
 };
 

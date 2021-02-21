@@ -10,6 +10,7 @@ export const getNotesByFolder = (state: RootState) => {
     tempFolders.sort(compareFunction).map((folder) => {
         notes[folder.name] = [];
     });
+
     notes[DEFAULT_FOLDER.NAME] = [];
     state.datas.notes.map((note) => {
         if (note.folderId !== DEFAULT_FOLDER.NAME) {

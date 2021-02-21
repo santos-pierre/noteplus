@@ -1,9 +1,13 @@
 import IconPlaceholder from '@/components/Sidebar/IconPlaceholder';
 import AddSection from '@/components/Sidebar/AddSection';
 import { useResetUserSelection } from '@/utils/custom-hooks';
+import { useSelector } from 'react-redux';
+import { getNotesByFolder } from '@/redux/selectors';
+import ListItems from '@/components/Sidebar/Items/ListItems';
 
 const DesktopSidebar = () => {
     const { resetUserSelection } = useResetUserSelection();
+    const notes = useSelector(getNotesByFolder);
 
     return (
         <div className="hidden lg:flex lg:flex-shrink-0">
@@ -19,7 +23,7 @@ const DesktopSidebar = () => {
                                     e.stopPropagation();
                                 }}
                             >
-                                {/* <ListItems notes={notes} /> */}
+                                <ListItems notes={notes} />
                             </div>
                         </nav>
                     </div>

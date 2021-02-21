@@ -1,6 +1,14 @@
-import FolderItem from './FolderItem';
-import InputItem from './InputItem';
-import NoteItem from './NoteItem';
+import { AppElement, AppStatus, DEFAULT_FOLDER } from '@/enums';
+import { getNotes, getSettings } from '@/redux/selectors';
+import { updateNote } from '@/redux/slices/dataSlice';
+import { NoteItem as NoteType } from '@/types';
+import { getFolderById, getFolderByName } from '@/utils/notes';
+import { DragEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import FolderItem from '@/components/Sidebar/Items/FolderItem';
+import NoteElement from '@/components/Sidebar/Items/NoteElement';
+import { useResetUserSelection } from '@/utils/custom-hooks';
+import InputItem from '@/components/Sidebar/Items/InputItem';
 
 type FolderNotesProps = {
     folder_name: string;
@@ -9,85 +17,99 @@ type FolderNotesProps = {
     handleDropVisibility: Function;
 };
 
-const FolderNotes = () => {
-    // const currentFolder = useSelector(getCurrentFolder);
-    // const currentAppStatus = useSelector(getCurrentAppStatus);
-    // const currentAppElement = useSelector(getCurrentAppElement);
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     if (folder_name === '4cbaed4f-c3eb-4a2e-b033-c3253cd03c50') {
-    //         setOpen(true);
-    //     }
-    // }, [folder_name]);
+const FolderNotes: React.FC<FolderNotesProps> = ({
+    folder_name,
+    notes,
+    dropVisibility,
+    handleDropVisibility,
+}) => {
+    const { resetUserSelection } = useResetUserSelection();
+    const { activeFolder, folders } = useSelector(getNotes);
+    const { appModeStatus, appModeItemType } = useSelector(getSettings);
+    const dispatch = useDispatch();
+    const [open, setOpen] = useState<boolean>(false);
 
-    // const [open, setOpen] = useState<boolean>(false);
+    const currentFolder = getFolderById(folders, activeFolder);
 
-    // const handleDrop = (e: DragEvent<HTMLElement>) => {
-    //     e.preventDefault();
-    //     const note = JSON.parse(e.dataTransfer.getData('note'));
-    //     dispatch(editNote({ id: note.id, folder_name: folder_name, newName: note.name }));
-    //     handleDropVisibility(null);
-    // };
+    useEffect(() => {
+        // No Folder Files
+        if (folder_name === DEFAULT_FOLDER.NAME) {
+            setOpen(true);
+        }
+    }, [folder_name]);
 
-    // const handleDragOver = (e: DragEvent<HTMLElement>) => {
-    //     e.preventDefault();
-    // };
+    const handleDrop = (e: DragEvent) => {
+        e.preventDefault();
+        const note: NoteType = JSON.parse(e.dataTransfer.getData('note'));
+        dispatch(
+            updateNote({
+                id: note.id,
+                folderId: getFolderByName(folders, folder_name).id,
+                name: note.name,
+                content: note.content,
+                lastUpdate: note.lastUpdated,
+            })
+        );
+        handleDropVisibility(null);
+    };
 
-    // const handleDragEnter = (e: DragEvent<HTMLElement>) => {
-    //     e.preventDefault();
-    //     setOpen(true);
-    //     handleDropVisibility(folder_name);
-    // };
+    const handleDragOver = (e: DragEvent) => {
+        e.preventDefault();
+    };
 
-    // const isVisible = () => {
-    //     if (currentAppElement === AppElement.NOTE) {
-    //         if (currentFolder) {
-    //             return currentFolder.name === folder_name && currentAppStatus === AppStatus.CREATE;
-    //         } else {
-    //             return (
-    //                 folder_name === '4cbaed4f-c3eb-4a2e-b033-c3253cd03c50' &&
-    //                 currentAppStatus === AppStatus.CREATE
-    //             );
-    //         }
-    //     } else {
-    //         return false;
-    //     }
-    // };
+    const handleDragEnter = (e: DragEvent) => {
+        e.preventDefault();
+        setOpen(true);
+        handleDropVisibility(folder_name);
+    };
+
+    const isVisible = () => {
+        if (appModeItemType === AppElement.NOTE) {
+            if (currentFolder) {
+                return currentFolder.name === folder_name && appModeStatus === AppStatus.CREATE;
+            } else {
+                return folder_name === DEFAULT_FOLDER.NAME && appModeStatus === AppStatus.CREATE;
+            }
+        } else {
+            return false;
+        }
+    };
 
     return (
-        //TODO
-        <div>Refactor</div>
-        // <figure
-        //     key={`${folder_name}`}
-        //     id={`${folder_name}`}
-        //     onDragEnter={handleDragEnter}
-        //     onDragOver={handleDragOver}
-        //     onDrop={handleDrop}
-        //     className={`${
-        //         dropVisibility === folder_name
-        //             ? 'bg-blue-100 dark:bg-blue-700 border-2 dark:border-blue-900 border-blue-500 rounded-md'
-        //             : ''
-        //     } px-2`}
-        // >
-        //     {folder_name !== '4cbaed4f-c3eb-4a2e-b033-c3253cd03c50' && (
-        //         <FolderItem
-        //             key={folder_name}
-        //             folder_name={folder_name}
-        //             handleCollapse={() => setOpen(!open)}
-        //             collapse={open}
-        //         />
-        //     )}
-        //     <ul
-        //         className={`${open ? 'block' : 'hidden'} ${
-        //             folder_name === '4cbaed4f-c3eb-4a2e-b033-c3253cd03c50' && notes.length === 0 ? 'h-52' : ''
-        //         } my-1 `}
-        //     >
-        //         {notes.map((element: Note) => {
-        //             return <NoteItem key={element.id} note={element} />;
-        //         })}
-        //     </ul>
-        //     {isVisible() && <InputItem folder_name={folder_name} />}
-        // </figure>
+        <figure
+            key={`${folder_name}`}
+            id={`${folder_name}`}
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+            className={`${
+                dropVisibility === folder_name
+                    ? 'bg-blue-100 dark:bg-blue-700 border-2 dark:border-blue-900 border-blue-500 rounded-md'
+                    : ''
+            }px-2`}
+        >
+            {folder_name !== DEFAULT_FOLDER.NAME && (
+                <FolderItem
+                    key={folder_name}
+                    folder_name={folder_name}
+                    handleCollapse={setOpen}
+                    collapse={open}
+                />
+            )}
+            <ul
+                className={`${open ? 'block' : 'hidden'} ${
+                    folder_name === DEFAULT_FOLDER.NAME && notes.length === 0 ? 'h-52' : ''
+                } my-1 `}
+                onClick={() =>
+                    folder_name === DEFAULT_FOLDER.NAME && notes.length === 0 ? resetUserSelection() : ''
+                }
+            >
+                {notes.map((note: NoteType) => {
+                    return <NoteElement key={note.id} note={note} />;
+                })}
+            </ul>
+            {isVisible() && <InputItem folder_name={folder_name} />}
+        </figure>
     );
 };
 

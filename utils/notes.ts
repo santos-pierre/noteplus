@@ -14,6 +14,15 @@ export const getFolderNameById = (folders: FolderItem[], id: string) => {
     }
 };
 
+export const getFolderById = (folders: FolderItem[], id: string) => {
+    let folder = folders.find((element) => element.id === id);
+    if (folder) {
+        return folder;
+    } else {
+        return { id: DEFAULT_FOLDER.NAME, name: DEFAULT_FOLDER.NAME } as FolderItem;
+    }
+};
+
 export const compareFunction = (a: NoteItem | FolderItem, b: NoteItem | FolderItem) => {
     if (a.name === DEFAULT_FOLDER.NAME || b.name === DEFAULT_FOLDER.NAME) {
         return -1;
@@ -22,5 +31,10 @@ export const compareFunction = (a: NoteItem | FolderItem, b: NoteItem | FolderIt
 };
 
 export const getFolderByName = (folders: FolderItem[], name: string) => {
-    return folders.find((element) => element.name === name);
+    let folder = folders.find((element) => element.name === name);
+    if (folder) {
+        return folder;
+    } else {
+        return { id: DEFAULT_FOLDER.NAME, name: DEFAULT_FOLDER.NAME } as FolderItem;
+    }
 };

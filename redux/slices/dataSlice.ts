@@ -47,7 +47,7 @@ const INITIAL_STATE: NoteState = {
             lastUpdated: '',
         },
     ],
-    activeFolder: '',
+    activeFolder: DEFAULT_FOLDER.NAME,
     activeNote: '',
     error: '',
     loading: false,
@@ -85,7 +85,7 @@ const dataSlice = createSlice({
                           ...note,
                           name: payload.name,
                           content: payload.content,
-                          folder_id: payload.folder_id,
+                          folderId: payload.folderId,
                           lastUpdated: payload.lastUpdate,
                       }
                     : note

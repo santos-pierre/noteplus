@@ -1,11 +1,15 @@
 import AddSection from '@/components/Sidebar/AddSection';
 import IconPlaceholder from '@/components/Sidebar/IconPlaceholder';
+import { getNotesByFolder } from '@/redux/selectors';
 import { useResetUserSelection, useSidebar } from '@/utils/custom-hooks';
 import { Transition } from '@headlessui/react';
+import { useSelector } from 'react-redux';
+import ListItems from './Items/ListItems';
 
 const MobileSidebar = () => {
     const { sidebarVisible, toggleVisibility } = useSidebar();
     const { resetUserSelection } = useResetUserSelection();
+    const notes = useSelector(getNotesByFolder);
 
     return (
         <Transition as="div" className="lg:hidden" show={sidebarVisible}>
@@ -72,7 +76,7 @@ const MobileSidebar = () => {
                                     e.stopPropagation();
                                 }}
                             >
-                                {/* <ListItems notes={notes} /> */}
+                                <ListItems notes={notes} />
                             </div>
                         </nav>
                     </div>
