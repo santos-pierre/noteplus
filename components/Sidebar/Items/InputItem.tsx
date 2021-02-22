@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 import { AppElement, AppStatus, DEFAULT_FOLDER } from '@/enums';
 import { getNotes, getSettings } from '@/redux/selectors';
-import { addFolder, addNote, updateActiveNote, updateNote } from '@/redux/slices/dataSlice';
+import { addFolder, addNote, updateActiveNote, updateFolder, updateNote } from '@/redux/slices/dataSlice';
 import { FolderItem, NoteItem } from '@/types';
 import { FocusEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,9 +16,10 @@ import {
 type InputItemProps = {
     folder_name?: string;
     note?: NoteItem;
+    folder?: FolderItem;
 };
 
-const InputItem: React.FC<InputItemProps> = ({ folder_name, note }) => {
+const InputItem: React.FC<InputItemProps> = ({ folder_name, note, folder }) => {
     const dispatch = useDispatch();
     const { activeFolder, folders, notes } = useSelector(getNotes);
     const { appModeItemType, appModeStatus } = useSelector(getSettings);
@@ -27,6 +28,9 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, note }) => {
     const [error, setError] = useState<string>('');
 
     useEffect(() => {
+        if (folder && folder.name) {
+            setValue(folder.name);
+        }
         if (note && note.name) {
             setValue(note.name);
         }
@@ -42,7 +46,7 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, note }) => {
                 setError('Name cannot exceed 20 characters');
             } else if (
                 (nameAlreadyExist(folders, value.trim()) || nameAlreadyExist(notes, value.trim())) &&
-                note?.name !== value.trim()
+                (note?.name !== value.trim() || folder?.name !== value.trim())
             ) {
                 setError('Folder or note with the same name already exist');
             } else {
@@ -51,46 +55,26 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, note }) => {
         }
     }, [value]);
 
+    //==============================================
+    // Validation
+    //==============================================
+
     const nameAlreadyExist = (tab: FolderItem[] | NoteItem[], name: string) => {
         return tab.findIndex((element) => element.name === name) !== -1;
     };
+
+    //==============================================
+    // React Events Handler
+    //==============================================
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!error) {
             if (appModeItemType === AppElement.NOTE) {
-                if (appModeStatus === AppStatus.EDIT) {
-                    if (note) {
-                        dispatch(
-                            updateNote({
-                                ...note,
-                                lastUpdate: dayjs().toString(),
-                                name: value,
-                            })
-                        );
-                    }
-                } else {
-                    let newNoteId = uuid();
-                    dispatch(
-                        addNote({
-                            id: newNoteId,
-                            name: value,
-                            folderId: activeFolder,
-                            content: '',
-                            lastUpdated: dayjs().toString(),
-                        })
-                    );
-                    dispatch(updateActiveNote(newNoteId));
-                    dispatch(updateUserSelection(newNoteId));
-                }
+                handleNote();
             } else if (appModeItemType === AppElement.FOLDER) {
-                dispatch(
-                    addFolder({
-                        id: uuid(),
-                        name: value,
-                    })
-                );
+                handleFolder();
             }
             if (inputEl.current) {
                 inputEl.current.blur();
@@ -113,6 +97,57 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, note }) => {
         dispatch(updateCurrentElementEdited(''));
     };
 
+    const handleFolder = () => {
+        if (appModeStatus === AppStatus.EDIT) {
+            if (folder) {
+                dispatch(
+                    updateFolder({
+                        ...folder,
+                        name: value,
+                    })
+                );
+            }
+        } else {
+            dispatch(
+                addFolder({
+                    id: uuid(),
+                    name: value,
+                })
+            );
+        }
+    };
+
+    //==============================================
+    // Utils
+    //==============================================
+
+    const handleNote = () => {
+        if (appModeStatus === AppStatus.EDIT) {
+            if (note) {
+                dispatch(
+                    updateNote({
+                        ...note,
+                        lastUpdate: dayjs().toString(),
+                        name: value,
+                    })
+                );
+            }
+        } else {
+            let newNoteId = uuid();
+            dispatch(
+                addNote({
+                    id: newNoteId,
+                    name: value,
+                    folderId: activeFolder,
+                    content: '',
+                    lastUpdated: dayjs().toString(),
+                })
+            );
+            dispatch(updateActiveNote(newNoteId));
+            dispatch(updateUserSelection(newNoteId));
+        }
+    };
+
     return (
         <div>
             <form
@@ -133,7 +168,7 @@ const InputItem: React.FC<InputItemProps> = ({ folder_name, note }) => {
                     } sm:text-sm`}
                 />
                 {error && (
-                    <p className="absolute left-0 inline-block w-full p-2 text-sm text-red-700 bg-red-200 rounded-md top-10">
+                    <p className="absolute left-0 inline-block w-full p-2 text-sm text-red-700 bg-red-200 rounded-md top-10 z-10">
                         {error}
                     </p>
                 )}

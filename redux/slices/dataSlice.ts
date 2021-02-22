@@ -1,4 +1,4 @@
-import { FolderItem, EditItemPayload, NoteItem, NoteState } from 'types';
+import { FolderItem, NoteItem, NoteState, EditNotePayload, EditFolderPaylaod } from 'types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DEFAULT_FOLDER } from '@/enums';
 
@@ -62,7 +62,7 @@ const dataSlice = createSlice({
             state.folders.push(payload);
         },
 
-        updateFolder: (state, { payload }: PayloadAction<EditItemPayload>) => {
+        updateFolder: (state, { payload }: PayloadAction<EditFolderPaylaod>) => {
             state.folders = state.folders.map((folder) =>
                 folder.id === payload.id ? { ...folder, name: payload.name } : folder
             );
@@ -78,7 +78,7 @@ const dataSlice = createSlice({
             state.notes.push(payload);
         },
 
-        updateNote: (state, { payload }: PayloadAction<EditItemPayload>) => {
+        updateNote: (state, { payload }: PayloadAction<EditNotePayload>) => {
             state.notes = state.notes.map((note) =>
                 note.id === payload.id
                     ? {

@@ -1,11 +1,17 @@
 import DesktopSidebar from '@/components/Sidebar/DesktopSidebar';
+import DeleteDialog from '@/components/Sidebar/Items/DeleteDialog';
 import MobileHeader from '@/components/Sidebar/MobileHeader';
 import MobileSidebar from '@/components/Sidebar/MobileSidebar';
+import { AppStatus } from '@/enums';
+import { getSettings } from '@/redux/selectors';
 
 import dynamic from 'next/dynamic';
+import { useSelector } from 'react-redux';
 const Editor = dynamic(import('@/components/Editor'), { ssr: false });
 
 const Home = () => {
+    const { appModeStatus } = useSelector(getSettings);
+
     return (
         <div className="flex h-screen overflow-hidden bg-dark-700">
             <MobileSidebar />
@@ -26,6 +32,7 @@ const Home = () => {
                     </main>
                 </div>
             </div>
+            {appModeStatus === AppStatus.DELETE && <DeleteDialog />}
         </div>
     );
 };

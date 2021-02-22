@@ -64,13 +64,11 @@ export type EditNotePayload = {
     content: string;
 };
 
-export type EditItemPayload = EditFolderPaylaod & EditNotePayload;
-
 //==============================================
 //Events
 //==============================================
 
-export type ReactDragEent = React.DragEvent<HTMLElement>;
+export type ReactDragEvent = React.DragEvent<HTMLElement>;
 
 //==============================================
 //Default Types

@@ -9,7 +9,7 @@ import {
 } from '@/redux/slices/settingsSlice';
 import { NoteItem } from '@/types';
 import { Menu, Transition } from '@headlessui/react';
-import { DragEvent, useState, MouseEvent, FocusEvent } from 'react';
+import { DragEvent, useState, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InputItem from '@/components/Sidebar/Items/InputItem';
 
@@ -159,6 +159,9 @@ const NoteElement: React.FC<ItemProps> = ({ note }) => {
                                                     onClick={(e: MouseEvent<HTMLButtonElement>) => {
                                                         e.stopPropagation();
                                                         setActionVisibility(false);
+                                                        dispatch(updateAppModeStatus(AppStatus.DELETE));
+                                                        dispatch(updateAppModeItemType(AppElement.NOTE));
+                                                        dispatch(updateCurrentElementEdited(note.id));
                                                     }}
                                                 >
                                                     <svg

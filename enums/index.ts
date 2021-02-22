@@ -12,6 +12,7 @@ export enum AppStatus {
     VIEW = 'VIEW',
     EDIT = 'EDIT',
     CREATE = 'CREATE',
+    DELETE = 'DELETE',
 }
 
 export const CODEMIRROR_OPTION = {

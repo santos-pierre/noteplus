@@ -24,10 +24,12 @@ const Editor: React.FC = () => {
     const [currentNote, setActiveNote] = useState<NoteItem>();
 
     useEffect(() => {
-        if (activeNote) {
+        if (activeNote !== '') {
             updateActiveNote(activeNote);
             const note = findNote(notes, activeNote);
             setActiveNote(note);
+        } else {
+            setActiveNote(undefined);
         }
     }, [activeNote]);
 
