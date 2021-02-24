@@ -36,7 +36,7 @@ const INITIAL_STATE: NoteState = {
             id: '9993faf4-cf9e-432f-8432-618a1f0be5cb',
             name: 'File 2',
             folderId: '378cfecd-61dc-4cc3-9312-58c20fafdc0b',
-            content: '',
+            content: `## Second Title \n je suis la je ne sais pas trop ce qu'il se passe putain\n`,
             lastUpdated: '',
         },
         {
