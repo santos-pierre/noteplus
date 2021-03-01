@@ -41,78 +41,105 @@ const Editor: React.FC = () => {
             return <EmptyEditor />;
         } else if (currentNote !== undefined) {
             if (preview) {
-                return (
-                    <div className="relative h-full bg-palenight">
-                        <MarkdownPreview content={currentNote.content} />
-                        <button
-                            onClick={() => setPreview(!preview)}
-                            className="absolute top-0 right-0 z-40 text-xl text-white w-52"
-                        >
-                            set Preview
-                        </button>
-                    </div>
-                );
+                return <MarkdownPreview content={currentNote.content} />;
             } else {
                 return (
-                    <div className="relative h-full">
-                        <CodeMirror
-                            className="h-full pb-10"
-                            value={currentNote.content}
-                            options={codeMirrorOptions}
-                            editorDidMount={(editor) => {
-                                setTimeout(() => {
-                                    editor.focus();
-                                }, 0);
-                                editor.setCursor(0);
-                            }}
-                            onBeforeChange={(editor, data, value) => {
-                                dispatch(
-                                    updateNote({
-                                        id: currentNote.id,
-                                        content: value,
-                                        folderId: currentNote.folderId,
-                                        lastUpdate: dayjs().toString(),
-                                        name: currentNote.name,
-                                    })
-                                );
-                                setActiveNote({ ...currentNote, content: value });
-                            }}
-                            onChange={(editor, data, value) => {
-                                if (!value) {
-                                    editor.focus();
-                                }
-                            }}
-                            onPaste={(editor, event: any) => {
-                                // https://github.com/scniro/react-codemirror2/issues/77
-                                if (
-                                    !event.clipboardData ||
-                                    !event.clipboardData.items ||
-                                    !event.clipboardData.items[0]
-                                )
-                                    return;
-                                event.clipboardData.items[0].getAsString((pasted: any) => {
-                                    if (editor.getSelection() !== pasted) return;
-                                    const { anchor, head } = editor.listSelections()[0];
-                                    editor.setCursor({
-                                        line: Math.max(anchor.line, head.line),
-                                        ch: Math.max(anchor.ch, head.ch),
-                                    });
+                    <CodeMirror
+                        className="h-full pb-10"
+                        value={currentNote.content}
+                        options={codeMirrorOptions}
+                        editorDidMount={(editor) => {
+                            setTimeout(() => {
+                                editor.focus();
+                            }, 0);
+                            editor.setCursor(0);
+                        }}
+                        onBeforeChange={(editor, data, value) => {
+                            dispatch(
+                                updateNote({
+                                    id: currentNote.id,
+                                    content: value,
+                                    folderId: currentNote.folderId,
+                                    lastUpdate: dayjs().toString(),
+                                    name: currentNote.name,
+                                })
+                            );
+                            setActiveNote({ ...currentNote, content: value });
+                        }}
+                        onChange={(editor, data, value) => {
+                            if (!value) {
+                                editor.focus();
+                            }
+                        }}
+                        onPaste={(editor, event: any) => {
+                            if (
+                                !event.clipboardData ||
+                                !event.clipboardData.items ||
+                                !event.clipboardData.items[0]
+                            )
+                                return;
+                            event.clipboardData.items[0].getAsString((pasted: any) => {
+                                if (editor.getSelection() !== pasted) return;
+                                const { anchor, head } = editor.listSelections()[0];
+                                editor.setCursor({
+                                    line: Math.max(anchor.line, head.line),
+                                    ch: Math.max(anchor.ch, head.ch),
                                 });
-                            }}
-                        />
-                        <button
-                            onClick={() => setPreview(!preview)}
-                            className="absolute top-0 right-0 z-40 text-xl text-white"
-                        >
-                            set Preview
-                        </button>
-                    </div>
+                            });
+                        }}
+                    />
                 );
             }
         }
     };
 
-    return <>{renderEditor()}</>;
+    return (
+        <div className="relative h-full bg-palenight">
+            {renderEditor()}
+            {currentNote && (
+                <div className="sticky bottom-0 z-40 flex items-center justify-end w-full h-8 bg-blue-500 text-gray-50">
+                    <button
+                        className="inline-flex mr-5 hover:bg-opacity-75 focus:outline-none"
+                        onClick={() => setPreview(!preview)}
+                    >
+                        {' '}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            className="w-6 h-6 mr-2"
+                        >
+                            {preview ? (
+                                <>
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                    />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                    />
+                                </>
+                            ) : (
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                />
+                            )}
+                        </svg>
+                        {preview ? 'Edit Mode' : 'Preview Mode'}
+                    </button>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default Editor;

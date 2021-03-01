@@ -123,7 +123,7 @@ const NoteElement: React.FC<ItemProps> = ({ note }) => {
                                     >
                                         <Menu.Items
                                             static
-                                            className="absolute right-0 w-32 mt-2 origin-top-right border divide-y divide-gray-600 rounded-md shadow-lg outline-none border-gray-800 bg-dark-700"
+                                            className="absolute right-0 z-40 w-32 mt-2 origin-top-right border border-gray-800 divide-y divide-gray-600 rounded-md shadow-lg outline-none bg-dark-700"
                                         >
                                             <Menu.Item>
                                                 <span

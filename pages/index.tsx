@@ -20,14 +20,11 @@ const Home = () => {
                 <MobileHeader />
                 <div className="relative z-0 flex flex-1 overflow-hidden">
                     <main
-                        className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last"
+                        className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last bg-palenight"
                         tabIndex={0}
                     >
                         {/* Start main area*/}
-                        <div className="h-full">
-                            <Editor />
-                        </div>
-                        <div className="fixed bottom-0 w-full h-10 bg-blue-600"></div>
+                        <Editor />
                         {/* End main area */}
                     </main>
                 </div>
