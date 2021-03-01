@@ -2,7 +2,7 @@ import { getNotes, getSettings } from '@/redux/selectors';
 import { updateActiveNote, updateNote } from '@/redux/slices/dataSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/mode/gfm/gfm';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jsx/jsx';
@@ -36,19 +36,17 @@ const Editor: React.FC = () => {
         }
     }, [activeNote]);
 
-    const markdown = `# Header 1 \n ## Header 2 \n hello`;
-
     const renderEditor = () => {
         if (!currentNote) {
             return <EmptyEditor />;
         } else if (currentNote !== undefined) {
             if (preview) {
                 return (
-                    <div className="relative bg-palenight h-full">
+                    <div className="relative h-full bg-palenight">
                         <MarkdownPreview content={currentNote.content} />
                         <button
                             onClick={() => setPreview(!preview)}
-                            className="z-40 text-xl text-white absolute right-0 w-52 top-0"
+                            className="absolute top-0 right-0 z-40 text-xl text-white w-52"
                         >
                             set Preview
                         </button>
@@ -67,7 +65,7 @@ const Editor: React.FC = () => {
                                 }, 0);
                                 editor.setCursor(0);
                             }}
-                            onChange={(editor, data, value) => {
+                            onBeforeChange={(editor, data, value) => {
                                 dispatch(
                                     updateNote({
                                         id: currentNote.id,
@@ -78,6 +76,11 @@ const Editor: React.FC = () => {
                                     })
                                 );
                                 setActiveNote({ ...currentNote, content: value });
+                            }}
+                            onChange={(editor, data, value) => {
+                                if (!value) {
+                                    editor.focus();
+                                }
                             }}
                             onPaste={(editor, event: any) => {
                                 // https://github.com/scniro/react-codemirror2/issues/77
@@ -99,7 +102,7 @@ const Editor: React.FC = () => {
                         />
                         <button
                             onClick={() => setPreview(!preview)}
-                            className="z-40 text-xl text-white absolute top-0 right-0"
+                            className="absolute top-0 right-0 z-40 text-xl text-white"
                         >
                             set Preview
                         </button>

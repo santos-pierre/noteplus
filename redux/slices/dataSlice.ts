@@ -46,6 +46,14 @@ const INITIAL_STATE: NoteState = {
             content: '',
             lastUpdated: '',
         },
+        {
+            id: '99896082-3b7a-4284-a347-e5eb0a421af2',
+            name: 'Heading Example',
+            folderId: DEFAULT_FOLDER.NAME,
+            content:
+                '# Heading 1 \n## Heading 2 \n### Heading 3 \n#### Heading 4 \n##### Heading 5 \n###### Heading 6',
+            lastUpdated: '',
+        },
     ],
     activeFolder: DEFAULT_FOLDER.NAME,
     activeNote: '',

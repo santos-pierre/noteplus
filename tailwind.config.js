@@ -15,21 +15,28 @@ module.exports = {
             typography: (theme) => ({
                 DEFAULT: {
                     css: {
-                        color: theme('colors.gray.200'),
+                        color: 'hsl(180, 100%, 97%)',
+                        blockquote: {
+                            color: theme('colors.gray.200'),
+                            borderLeftColor: theme('colors.blue.500'),
+                        },
                         h1: {
-                            color: theme('colors.purple.700'),
+                            color: 'hsl(39, 100%, 71%)',
                         },
                         h2: {
-                            color: theme('colors.purple.700'),
+                            color: 'hsl(39, 100%, 71%)',
                         },
                         h3: {
-                            color: theme('colors.purple.700'),
+                            color: 'hsl(39, 100%, 71%)',
                         },
                         h4: {
-                            color: theme('colors.purple.700'),
+                            color: 'hsl(39, 100%, 71%)',
                         },
                         h5: {
-                            color: theme('colors.purple.700'),
+                            color: 'hsl(39, 100%, 71%)',
+                        },
+                        h6: {
+                            color: 'hsl(39, 100%, 71%)',
                         },
                         a: {
                             color: theme('colors.blue.700'),

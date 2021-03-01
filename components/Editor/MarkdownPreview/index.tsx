@@ -18,7 +18,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
         return marked(content);
     };
 
-    return <div className="prose p-3" dangerouslySetInnerHTML={{ __html: renderMarkdown() }}></div>;
+    return <div className="p-3 prose prose-lg" dangerouslySetInnerHTML={{ __html: renderMarkdown() }}></div>;
 };
 
 export default MarkdownPreview;
