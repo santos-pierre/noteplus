@@ -35,7 +35,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ content }) => {
 
     return (
         <div
-            className="w-full h-full px-10 py-3 overflow-y-auto prose prose-lg"
+            className="h-full px-8 py-3 prose prose-lg"
             dangerouslySetInnerHTML={{ __html: renderMarkdown() }}
         ></div>
     );

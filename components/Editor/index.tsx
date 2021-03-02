@@ -45,7 +45,7 @@ const Editor: React.FC = () => {
             } else {
                 return (
                     <CodeMirror
-                        className="h-full pb-10"
+                        className="h-full"
                         value={currentNote.content}
                         options={codeMirrorOptions}
                         editorDidMount={(editor) => {
@@ -97,7 +97,10 @@ const Editor: React.FC = () => {
         <div className="relative h-full bg-palenight">
             {renderEditor()}
             {currentNote && (
-                <div className="sticky bottom-0 z-40 flex items-center justify-end w-full h-8 bg-blue-500 text-gray-50">
+                <div
+                    className="absolute bottom-0 z-40 flex items-center justify-end w-full h-8 bg-blue-500 text-gray-50"
+                    style={{ height: '3%' }}
+                >
                     <button
                         className="inline-flex mr-5 hover:bg-opacity-75 focus:outline-none"
                         onClick={() => setPreview(!preview)}
