@@ -113,7 +113,7 @@ const Editor: React.FC = () => {
                             stroke="currentColor"
                             className="w-6 h-6 mr-2"
                         >
-                            {preview ? (
+                            {!preview ? (
                                 <>
                                     <path
                                         strokeLinecap="round"
